@@ -66,7 +66,7 @@ namespace DesignPatterns
                 File.WriteAllText(filename, j.ToString());
         }
     }
-    public class Demo
+    public class SingleResponsibilityPrinciple
     {
         static void Main(string[] args)
         {
