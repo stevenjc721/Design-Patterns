@@ -1,4 +1,5 @@
 ﻿using DesignPattern.Patterns.Principles;
+using DesignPattern.Patterns.Builders;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -83,13 +84,82 @@ namespace DesignPattern
 
         }
 
-        // Interface Segregation Principle Example
-        public static void ISP()
+        // Dependency Inversion Principle Example
+        public static void DIP()
         {
+            var parent = new DependencyInversionPrinciple.Person { Name = "John"};
+            var child1 = new DependencyInversionPrinciple.Person { Name = "Chris"};
+            var child2 = new DependencyInversionPrinciple.Person { Name = "Mary"};
 
+            var relationships = new DependencyInversionPrinciple.Relationships();
+            relationships.AddParentAndChild(parent, child1);
+            relationships.AddParentAndChild(parent, child2);
+
+            new DependencyInversionPrinciple.Research(relationships);
 
         }
 
+        //Builder Example
+        public static void Builder()
+        {
+            var hello = "hello";
+            var sb = new StringBuilder();
+            sb.Append("<p>");
+            sb.Append(hello);
+            sb.Append("</p>");
+            WriteLine(sb);
+
+            var words = new[] { "hello", "world" };
+            sb.Clear();
+            sb.Append("<ul>");
+            foreach (var word in words)
+            {
+                sb.AppendFormat("<li>{0}</li>", word);
+            }
+            sb.Append("</ul>");
+            WriteLine(sb);
+
+            // ^^ Old example of builder problem
+
+            // vv New example of builder
+
+            var builder = new Builder.HtmlBuilder("");
+            builder.AddChild("li", "hello");
+            builder.AddChild("li", "world");
+            WriteLine(builder.ToString());
+        }
+
+        //Fluent Builder Example
+        public static void FluentBuilder()
+        {
+            var builder = new Builder.HtmlBuilder("");
+            builder.AddChild("li", "hello");
+            builder.AddChild("li", "world");
+            WriteLine(builder.ToString());
+
+            // ^^ Old example of builder 
+
+            // vv New example of Fluent builder
+
+            var fluentbuilder = new FluentBuilder.HtmlBuilder("");
+            fluentbuilder.AddChildFluent("li", "hello").AddChildFluent("li", "world");
+            WriteLine(fluentbuilder.ToString());
+        }
+
+        //Fluent Builder Example with recursive generics
+        public static void FluentRecursiveBuilder()
+        {
+            //  var builder = new FluentBuilderRecursiveGenerics.PersonJobBuilder();
+            //  builder.Called("Steven");// can't .WorkAsA
+
+            var me = FluentBuilderRecursiveGenerics.Person.New
+                .Called("Steven")
+                .WorksAsA("Developer")
+                .Build();
+
+            WriteLine(me);
+
+        }
 
         static void Main(string[] args)
         {
@@ -102,8 +172,18 @@ namespace DesignPattern
             // Lsikov substituition Principle Example
             // LSP();
 
-            // Interface Segregation Principle
-            ISP();
+            // Dependency Inversion Principle Example
+            // DIP();
+
+            // Builder Example
+            // Builder();
+
+            // Fluent Builder Example
+            //  FluentBuilder();
+
+            // //Fluent Builder Example with recursive generics
+            FluentRecursiveBuilder();
+
 
             ReadLine();
         }
