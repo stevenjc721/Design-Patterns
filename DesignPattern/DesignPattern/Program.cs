@@ -1,6 +1,8 @@
 ﻿using DesignPattern.Patterns.Principles;
 using DesignPattern.Patterns.Builders;
 using DesignPattern.Patterns.Factories;
+using DesignPattern.Patterns.Prototypes;
+using DesignPattern.Patterns.Singleton;
 using DesignPattern.Patterns.Exercises;
 using System;
 using System.Collections.Generic;
@@ -219,6 +221,84 @@ namespace DesignPattern
 
         }
 
+        // ICloneable Issues Example
+        public static void ICloneableIssues()
+        {
+            var john = new ICloneableIsBad.Person(new[] { "John", "Smith" },
+                new ICloneableIsBad.Address("London Road", 123));
+
+            var jane = john;
+            jane.Names[0] = "Jane"; // Copied Reference so you changed the values at the memory location of John
+
+            WriteLine(john);
+            WriteLine(jane);
+
+            john.Names[0] = "John";
+
+            var jane2 = (ICloneableIsBad.Person)john.Clone();
+            jane2.Address.HouseNumber = 456; 
+
+            WriteLine(john);
+            WriteLine(jane2);
+
+        }
+
+        // CopyConstructor Example
+        public static void CC()
+        {
+            var john = new CopyConstructor.Person(new[] { "John", "Smith" },
+                new CopyConstructor.Address("London Road", 123));
+
+            var jane = new CopyConstructor.Person(john); // uses a constructor to initialize a clone
+            jane.Address.HouseNumber = 321;
+
+            WriteLine(john);
+            WriteLine(jane);
+        }
+
+        // Explicit Deep Copy Interface Example
+        public static void ExplicitDCI()
+        {
+            var john = new ExplicitDeepCopyInterface.Person(new[] { "John", "Smith" },
+                new ExplicitDeepCopyInterface.Address("London Road", 123));
+
+            var jane =john.DeepCopy(); // uses an Interface for generics to initialize a clone
+            jane.Address.HouseNumber = 321;
+
+            WriteLine(john);
+            WriteLine(jane);
+        }
+
+        // Copy Through Serialization Example
+        public static void CopySerialization()
+        {
+            var john = new PPerson(new[] { "John", "Smith" },
+                new AAddress("London Road", 123));
+
+            var jane = john.DeepCopy(); // Extension Binary Serialization
+            jane.Names[0] = "Jane";
+            jane.Address.HouseNumber = 321;
+            WriteLine(john);
+            WriteLine(jane);
+            WriteLine();
+
+            var jane2 = jane.DeepCopyXml(); // Extension XML Serialization
+            jane2.Names[0] = "Jane2";
+            jane2.Address.HouseNumber = 4321;
+
+            WriteLine(john);
+            WriteLine(jane);
+            WriteLine(jane2);
+        }
+
+        // Basic SingletonImplementation Example
+        public static void SI()
+        {
+            var db = SingletonImplementation.SingletonDatabase.Instance;
+            var city = "Tokyo";
+            WriteLine($"{city} has population {db.GetPopulation(city)}");
+        }
+
         static void Main(string[] args)
         {
             // Single Responsibility Principle Example
@@ -259,7 +339,23 @@ namespace DesignPattern
             // IF();
 
             // Abstract Factory Example
-             AF();
+            // AF();
+
+            // ICloneable Issues Example
+            // ICloneableIssues();
+
+            // CopyConstructor Example
+            // CC();
+
+            // Explicit Deep Copy Interface Example
+            // ExplicitDCI();
+
+            // Copy Through Serialization Example
+            // CopySerialization();
+
+            // Basic SingletonImplementation Example
+            SI();
+
 
             ReadLine();
         }
