@@ -1,5 +1,7 @@
 ﻿using DesignPattern.Patterns.Principles;
 using DesignPattern.Patterns.Builders;
+using DesignPattern.Patterns.Factories;
+using DesignPattern.Patterns.Exercises;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -161,6 +163,62 @@ namespace DesignPattern
 
         }
 
+        // Faceted Builder Example
+        public static void FacetedBuilder()
+        {
+            var pb = new FacetedBuilder.PersonBuilder();
+            FacetedBuilder.Person person = pb
+                                            .Lives.At("123 london Road")
+                                                  .In("London")
+                                                  .WithPostcode("SW12AC")
+                                            .Works.At("Fabrikam")
+                                                  .AsA("Engineer")
+                                                  .Earning(1234567);
+
+            WriteLine(person);
+
+        }
+
+        // Factory Method Example
+        public static void FM()
+        {
+            var point = FactoryMethod.Point.NewPolarPoint(1.0,Math.PI / 2);
+
+            WriteLine(point);
+
+        }
+
+        // Factory Example
+        public static void F()
+        {
+            var point = Factory.PointFactory.NewPolarPoint(1.0, Math.PI / 2);
+
+            WriteLine(point);
+
+        }
+
+        // Inner Factory Example
+        public static void IF()
+        {
+            var point = InnerFactory.Point.Factory.NewPolarPoint(1.0, Math.PI / 2);
+
+            WriteLine(point);
+            var origin = InnerFactory.Point.Origin;
+
+        }
+
+        // Abstract Factory Example
+        public static void AF()
+        {
+            var machine = new AbstractFactory.HotDrinkMachine();
+            //var drink = machine.MakeDrink(AbstractFactory.HotDrinkMachine.AvailableDrink.Tea, 100); // Violates OCP
+            //drink.Consume();
+
+            var drink = machine.MakeDrink();
+            drink.Consume();
+
+        }
+
         static void Main(string[] args)
         {
             // Single Responsibility Principle Example
@@ -181,9 +239,27 @@ namespace DesignPattern
             // Fluent Builder Example
             //  FluentBuilder();
 
-            // //Fluent Builder Example with recursive generics
-            FluentRecursiveBuilder();
+            // Fluent Builder Example with recursive generics
+            // FluentRecursiveBuilder();
 
+            // Faceted Builder Example
+            // FacetedBuilder();
+
+            // Builder Exercise 
+            // var cb = new BuilderExercise.CodeBuilder("Person").AddField("Name", "string").AddField("Age", "int");
+            // WriteLine(cb);
+
+            // Factory Method Example
+            // FM();
+
+            // Factory Example
+            // F();
+
+            // Inner Factory Example
+            // IF();
+
+            // Abstract Factory Example
+             AF();
 
             ReadLine();
         }
