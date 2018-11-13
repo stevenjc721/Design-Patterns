@@ -3,6 +3,7 @@ using DesignPattern.Patterns.Builders;
 using DesignPattern.Patterns.Factories;
 using DesignPattern.Patterns.Prototypes;
 using DesignPattern.Patterns.Singleton;
+using DesignPattern.Patterns.Adapters;
 using DesignPattern.Patterns.Exercises;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace DesignPattern
     {
         // Single Responsibility Principle Example
         public static void SRP() {
-            
+
             var j = new SingleResponsibilityPrinciple.Journal();
 
             j.AddEntry("I smile today");
@@ -27,8 +28,8 @@ namespace DesignPattern
 
             var p = new SingleResponsibilityPrinciple.Persistence();
             var filename = @"c:\temp\journal.txt";
-            p.SaveToFile(j, filename, true); 
-            Process.Start(filename);            
+            p.SaveToFile(j, filename, true);
+            Process.Start(filename);
         }
 
         // Open-Closed Principle Example
@@ -73,7 +74,7 @@ namespace DesignPattern
         // Lsikov substituition Principle Example
         public static void LSP()
         {
-            LiskovSubstitutionPrinciple.Rectangle rc = new LiskovSubstitutionPrinciple.Rectangle(2,3);
+            LiskovSubstitutionPrinciple.Rectangle rc = new LiskovSubstitutionPrinciple.Rectangle(2, 3);
 
             WriteLine($"{rc} has area {LiskovSubstitutionPrinciple.Area(rc)}");
 
@@ -91,9 +92,9 @@ namespace DesignPattern
         // Dependency Inversion Principle Example
         public static void DIP()
         {
-            var parent = new DependencyInversionPrinciple.Person { Name = "John"};
-            var child1 = new DependencyInversionPrinciple.Person { Name = "Chris"};
-            var child2 = new DependencyInversionPrinciple.Person { Name = "Mary"};
+            var parent = new DependencyInversionPrinciple.Person { Name = "John" };
+            var child1 = new DependencyInversionPrinciple.Person { Name = "Chris" };
+            var child2 = new DependencyInversionPrinciple.Person { Name = "Mary" };
 
             var relationships = new DependencyInversionPrinciple.Relationships();
             relationships.AddParentAndChild(parent, child1);
@@ -184,7 +185,7 @@ namespace DesignPattern
         // Factory Method Example
         public static void FM()
         {
-            var point = FactoryMethod.Point.NewPolarPoint(1.0,Math.PI / 2);
+            var point = FactoryMethod.Point.NewPolarPoint(1.0, Math.PI / 2);
 
             WriteLine(point);
 
@@ -236,7 +237,7 @@ namespace DesignPattern
             john.Names[0] = "John";
 
             var jane2 = (ICloneableIsBad.Person)john.Clone();
-            jane2.Address.HouseNumber = 456; 
+            jane2.Address.HouseNumber = 456;
 
             WriteLine(john);
             WriteLine(jane2);
@@ -262,7 +263,7 @@ namespace DesignPattern
             var john = new ExplicitDeepCopyInterface.Person(new[] { "John", "Smith" },
                 new ExplicitDeepCopyInterface.Address("London Road", 123));
 
-            var jane =john.DeepCopy(); // uses an Interface for generics to initialize a clone
+            var jane = john.DeepCopy(); // uses an Interface for generics to initialize a clone
             jane.Address.HouseNumber = 321;
 
             WriteLine(john);
@@ -315,6 +316,20 @@ namespace DesignPattern
             var ceo2 = new Monostate.CEO();
 
             WriteLine(ceo2);
+        }
+
+        // Adapter Demo w/o caching Example
+        public static void AD()
+        {
+            Demo.print();
+            Demo.print();
+        }
+
+        // Adapter Demo w caching Example
+        public static void AC()
+        {
+            AdapterCaching.print();
+            AdapterCaching.print();
         }
 
         static void Main(string[] args)
@@ -378,7 +393,13 @@ namespace DesignPattern
             // STI();
 
             // Singleton Monostate Example
-             SM();
+            // SM();
+
+            // Adapter Demo Example
+            // AD();
+
+            // Adapter Demo w caching Example
+            // AC();
 
             ReadLine();
         }
