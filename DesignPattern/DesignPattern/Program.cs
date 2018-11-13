@@ -291,12 +291,30 @@ namespace DesignPattern
             WriteLine(jane2);
         }
 
-        // Basic SingletonImplementation Example
+        // Basic Singleton Implementation Example
         public static void SI()
         {
             var db = SingletonImplementation.SingletonDatabase.Instance;
             var city = "Tokyo";
             WriteLine($"{city} has population {db.GetPopulation(city)}");
+        }
+
+        // Basic Singleton Testablility Issue Example
+        public static void STI()
+        {
+
+        }
+
+        // Singleton Monostate Example
+        public static void SM()
+        {
+            var ceo = new Monostate.CEO();
+            ceo.Name = "Adam Smith";
+            ceo.Age = 55;
+
+            var ceo2 = new Monostate.CEO();
+
+            WriteLine(ceo2);
         }
 
         static void Main(string[] args)
@@ -353,9 +371,14 @@ namespace DesignPattern
             // Copy Through Serialization Example
             // CopySerialization();
 
-            // Basic SingletonImplementation Example
-            SI();
+            // Basic Singleton Implementation Example
+            // SI();
 
+            // Basic Singleton Testablility Issue Example
+            // STI();
+
+            // Singleton Monostate Example
+             SM();
 
             ReadLine();
         }
