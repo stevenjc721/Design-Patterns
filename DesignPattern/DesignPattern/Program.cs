@@ -4,6 +4,8 @@ using DesignPattern.Patterns.Factories;
 using DesignPattern.Patterns.Prototypes;
 using DesignPattern.Patterns.Singleton;
 using DesignPattern.Patterns.Adapters;
+using DesignPattern.Patterns.Bridges;
+using DesignPattern.Patterns.Compositions;
 using DesignPattern.Patterns.Exercises;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Console;
+using Autofac;
 
 namespace DesignPattern
 {
@@ -332,7 +335,70 @@ namespace DesignPattern
             AdapterCaching.print();
         }
 
-        static void Main(string[] args)
+        // Bridge Example
+        public static void BridgeExample()
+        {
+            
+            //Bridge.IRenderer renderer = new Bridge.RasterRenderer();
+            Bridge.IRenderer renderer = new Bridge.VectorRenderer();
+
+            var circle = new Bridge.Circle(renderer, 5);
+
+            circle.Draw();
+            circle.Resize(2);
+            circle.Draw();
+
+            // di is better less tedious option
+            var cb = new ContainerBuilder();
+            cb.RegisterType<Bridge.VectorRenderer>().As<Bridge.IRenderer>()
+                .SingleInstance();
+
+            cb.Register((c, p) =>
+                new Bridge.Circle(c.Resolve<Bridge.IRenderer>(),
+                                p.Positional<float>(0)));
+            using (var c = cb.Build())
+            {
+                circle = c.Resolve<Bridge.Circle>(
+                    new PositionalParameter(0, 5.0f));
+                circle.Draw();
+                circle.Resize(2);
+                circle.Draw();
+            }
+           
+        }
+
+        // Geo Composition Example
+        public static void CompositeGeo()
+        {
+            var drawing = new CompositeGeo.GraphicObject { Name = "My Drawing" };
+            drawing.Children.Add(new CompositeGeo.Square { Color = "Red" }); // Real world use helper methods 
+            drawing.Children.Add(new CompositeGeo.Circle { Color = "Yellow" }); // Real world use helper methods 
+
+            var group = new CompositeGeo.GraphicObject();
+            group.Children.Add(new CompositeGeo.Circle { Color = "Blue" });
+            group.Children.Add(new CompositeGeo.Square { Color = "Blue" });
+
+            drawing.Children.Add(group);
+
+            Console.Out.WriteLine(drawing);
+        }
+
+        // Neural Net Composition Example
+        public static void CompositeNN()
+        {
+            var neuron1 = new Neuron();
+            var neuron2 = new Neuron();
+
+            neuron1.ConnectTo(neuron2);
+
+            var layer1 = new NeuronLayer();
+            var layer2 = new NeuronLayer();
+
+            neuron1.ConnectTo(layer1);
+            layer1.ConnectTo(layer2);
+        }
+
+            static void Main(string[] args)
         {
             // Single Responsibility Principle Example
             // SRP();
@@ -400,6 +466,12 @@ namespace DesignPattern
 
             // Adapter Demo w caching Example
             // AC();
+
+            // Bridge Demo
+            // BridgeExample();
+
+            // Geo Composition Example
+            CompositeGeo();
 
             ReadLine();
         }

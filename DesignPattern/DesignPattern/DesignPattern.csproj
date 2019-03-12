@@ -69,12 +69,17 @@
   <ItemGroup>
     <Compile Include="Patterns\Adapters\AdapterCaching.cs" />
     <Compile Include="Patterns\Adapters\Demo.cs" />
+    <Compile Include="Patterns\Bridges\Bridge.cs" />
     <Compile Include="Patterns\Builders\Builder.cs" />
     <Compile Include="Patterns\Builders\FacetedBuilder.cs" />
     <Compile Include="Patterns\Builders\FluentBuilder.cs" />
     <Compile Include="Patterns\Builders\FluentBuilderRecursiveGenerics.cs" />
+    <Compile Include="Patterns\Compositions\CompositeGeo.cs" />
+    <Compile Include="Patterns\Compositions\CompositeNeuralNetwork.cs" />
     <Compile Include="Patterns\Exercises\AdapterExercise.cs" />
+    <Compile Include="Patterns\Exercises\BridgeExercise.cs" />
     <Compile Include="Patterns\Exercises\BuilderExercise.cs" />
+    <Compile Include="Patterns\Exercises\CompositeExercise.cs" />
     <Compile Include="Patterns\Exercises\FactoryExercise.cs" />
     <Compile Include="Patterns\Exercises\PrototypeExercise.cs" />
     <Compile Include="Patterns\Exercises\SingletonExercise.cs" />
