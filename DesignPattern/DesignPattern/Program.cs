@@ -6,6 +6,8 @@ using DesignPattern.Patterns.Singleton;
 using DesignPattern.Patterns.Adapters;
 using DesignPattern.Patterns.Bridges;
 using DesignPattern.Patterns.Compositions;
+using DesignPattern.Patterns.Decorator;
+using DesignPattern.Patterns.Flyweight;
 using DesignPattern.Patterns.Exercises;
 using System;
 using System.Collections.Generic;
@@ -398,7 +400,87 @@ namespace DesignPattern
             layer1.ConnectTo(layer2);
         }
 
-            static void Main(string[] args)
+        // Decorator Example with String Builder
+        public static void DecoratorSB()
+        {
+            var cb = new DecoratorStringBuilder.CodeBuilder();
+            cb.AppendLine("class Foo")
+              .AppendLine("{")
+              .AppendLine("}");
+            WriteLine(cb);
+        }
+
+        // Adapter-Decorator Example with String Builder
+        public static void AdapterDecorator()
+        {
+            var s = "hello ";
+            s += "world"; // inefficient makes a new string alot of wasted memory
+            WriteLine(s);
+
+            AdapterDecorator.MyStringBuilder s2 = "hello ";
+            s2 += "world";
+            WriteLine(s);
+        }
+
+        // Decorator with multiple inheritance Example 
+        public static void DecoratorMI()
+        {
+            var b = new MultipleInheritance.Bird();
+            var l = new MultipleInheritance.Lizard();
+            var d = new MultipleInheritance.Dragon(b, l);
+
+            d.Weight = 123;
+            d.Fly();
+            d.Crawl();
+
+        }
+
+        // Dynamic Decorator Example 
+        public static void DynamicDecoratorEx()
+        {
+            var square = new DynamicDecorator.Square(1.23f);
+            WriteLine(square.AsString());
+
+            var redSquare = new DynamicDecorator.ColoredShape(square, "red");
+            WriteLine(redSquare.AsString());
+
+            var redHalfTransparentSquare = new DynamicDecorator.TransparentShape(redSquare, 0.5f);
+            WriteLine(redHalfTransparentSquare.AsString());
+
+        }
+
+        // Static Decorator Example 
+        public static void StaticDecoratorEx()
+        {
+            /*
+             * No access to fields so you can't set Square.Sides/Circle.Radius 
+             */
+            var redSquare = new StaticDecorator.ColoredShape<StaticDecorator.Square>("red");
+            WriteLine(redSquare.AsString());
+
+            var circle = new StaticDecorator.TransparentShape<StaticDecorator.ColoredShape<StaticDecorator.Circle>>(0.4f);
+            WriteLine(circle.AsString());
+
+
+        }
+
+        // Flyweight Text Formatting Example 
+        public static void FlyweightTxtEx()
+        {
+            /*
+             * No access to fields so you can't set Square.Sides/Circle.Radius 
+             */
+            var ft = new FlyweightTextFormatting.FormattedText("This is a brave new world");
+            ft.Capitalize(10, 15);
+            WriteLine(ft);
+
+            var bft = new FlyweightTextFormatting.BetterFormattedText("This is a brave new world");
+            bft.GetRange(10, 15).Capitalize = true;
+            WriteLine(bft);
+
+        }
+
+        static void Main(string[] args)
         {
             // Single Responsibility Principle Example
             // SRP();
@@ -471,7 +553,25 @@ namespace DesignPattern
             // BridgeExample();
 
             // Geo Composition Example
-            CompositeGeo();
+            // CompositeGeo();
+
+            // Decorator Example with String Builder
+            // DecoratorSB();
+
+            // Adapter-Decorator Example with String Builder
+            // AdapterDecorator();
+
+            // Decorator with multiple inheritance Example 
+            //  DecoratorMI();
+
+            // Dynamic Decorator Example 
+            // DynamicDecoratorEx();
+
+            // Static Decorator Example 
+            // StaticDecoratorEx();
+
+            // Flyweight Text Formatting Example 
+             FlyweightTxtEx();
 
             ReadLine();
         }

@@ -39,6 +39,9 @@
     <Reference Include="Autofac, Version=4.9.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.9.0-beta1\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="dotMemory.Unit, Version=111.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.dotMemoryUnit.3.0.20171219.105559\lib\net35\dotMemory.Unit.dll</HintPath>
+    </Reference>
     <Reference Include="Dynamitey, Version=2.0.9.136, Culture=neutral, PublicKeyToken=cbf53ea3aeb972c6, processorArchitecture=MSIL">
       <HintPath>..\packages\Dynamitey.2.0.9.136\lib\net40\Dynamitey.dll</HintPath>
     </Reference>
@@ -76,10 +79,17 @@
     <Compile Include="Patterns\Builders\FluentBuilderRecursiveGenerics.cs" />
     <Compile Include="Patterns\Compositions\CompositeGeo.cs" />
     <Compile Include="Patterns\Compositions\CompositeNeuralNetwork.cs" />
+    <Compile Include="Patterns\Decorator\AdapterDecorator.cs" />
+    <Compile Include="Patterns\Decorator\DecoratorStringBuilder.cs" />
+    <Compile Include="Patterns\Decorator\DynamicDecorator.cs" />
+    <Compile Include="Patterns\Decorator\MultipleInheritance.cs" />
+    <Compile Include="Patterns\Decorator\StaticDecorator.cs" />
     <Compile Include="Patterns\Exercises\AdapterExercise.cs" />
     <Compile Include="Patterns\Exercises\BridgeExercise.cs" />
     <Compile Include="Patterns\Exercises\BuilderExercise.cs" />
+    <Compile Include="Patterns\Exercises\DecoratorExercise.cs" />
     <Compile Include="Patterns\Exercises\CompositeExercise.cs" />
+    <Compile Include="Patterns\Exercises\FacadeExercise.cs" />
     <Compile Include="Patterns\Exercises\FactoryExercise.cs" />
     <Compile Include="Patterns\Exercises\PrototypeExercise.cs" />
     <Compile Include="Patterns\Exercises\SingletonExercise.cs" />
@@ -88,6 +98,8 @@
     <Compile Include="Patterns\Factories\FactoryMethod.cs" />
     <Compile Include="Patterns\Factories\InnerFactory.cs" />
     <Compile Include="Patterns\Factories\PointExample.cs" />
+    <Compile Include="Patterns\Flyweight\FlyweightTextFormatting.cs" />
+    <Compile Include="Patterns\Flyweight\FlyweightUser.cs" />
     <Compile Include="Patterns\Principles\DependencyInversionPrinciple.cs" />
     <Compile Include="Patterns\Principles\InterfaceSegregationPrinciple.cs" />
     <Compile Include="Patterns\Principles\LiskovSubstitutionPrinciple.cs" />
